@@ -3,14 +3,15 @@
 
 /**
  * alloc_grid - allocates a 2D array of integers
- * @width: width of the array
- * @height: height of the array
+ * @width: width of the 2D array
+ * @height: height of the 2D array
  *
- * Return: pointer to the 2D array or NULL if failure
+ * Return: pointer to the 2D array or NULL on failure
  */
+
 int **alloc_grid(int width, int height)
 {
-        int i, j;
+        int i, j, k, l;
         int **a;
 
         if (width <= 0 || height <= 0)
@@ -19,7 +20,10 @@ int **alloc_grid(int width, int height)
         a = malloc(sizeof(int *) * height);
 
         if (a == NULL)
+        {
+                free(a);
                 return (NULL);
+        }
 
         for (i = 0; i < height; i++)
         {
@@ -27,21 +31,20 @@ int **alloc_grid(int width, int height)
 
                 if (a[i] == NULL)
                 {
-                        for (j = i - 1; j >= 0; j--)
+                        for (j = i; j >= 0; j--)
                         {
                                 free(a[j]);
                         }
-
                         free(a);
                         return (NULL);
                 }
         }
 
-        for (i = 0; i < height; i++)
+        for (k = 0; k < height; k++)
         {
-                for (j = 0; j < width; j++)
+                for (l = 0; l < width; l++)
                 {
-                        a[i][j] = 0;
+                        a[k][l] = 0;
                 }
         }
 
